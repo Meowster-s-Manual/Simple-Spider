@@ -11,8 +11,8 @@ namespace Socket {
 	{
 	public:
 		int initialization();
-		//TcpSocket();
-		//~TcpSocket();
+		TcpSocket();
+		~TcpSocket();
 
 	private:
 
