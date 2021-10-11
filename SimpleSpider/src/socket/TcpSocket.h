@@ -4,7 +4,7 @@
 #include <iostream>
 
 #pragma comment(lib, "Ws2_32.lib")
-#define DEFAULT_PORT "27015"
+#define DEFAULT_PORT "443"
 
 namespace Socket {
 	class TcpSocket
@@ -17,6 +17,4 @@ namespace Socket {
 	private:
 
 	};
-
-
 }
