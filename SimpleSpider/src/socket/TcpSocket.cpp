@@ -1,7 +1,5 @@
 #include "TcpSocket.h"
 
-#define DEFAULT_BUFLEN 512
-
 using namespace Socket;
 
 TcpSocket::TcpSocket() {
@@ -15,16 +13,16 @@ int TcpSocket::initialization() {
 	WSADATA wsaData;
 	// Create socket object called ConnectSocket
 	SOCKET ConnectSocket = INVALID_SOCKET;
-	int result;
+	int returnCode;
 	// Initialize Winsock
-	result = WSAStartup(MAKEWORD(2, 2), &wsaData);
-	if (result != 0) {
-		printf("WSAStartup failed: %d\n", result);
+	returnCode = WSAStartup(MAKEWORD(2, 2), &wsaData);
+	if (returnCode != 0) {
+		printf("WSAStartup failed: %d\n", returnCode);
 		return 1;
 	}
-	printf("Here is result from WSAStartup: %d\n", result);
+	printf("Here is result from WSAStartup: %d\n", returnCode);
 	//After initialization(addrinfo)
-	struct addrinfo * res = NULL,
+	struct addrinfo * result = NULL,
 		            * ptr = NULL,
 		            hints;
 
@@ -34,16 +32,16 @@ int TcpSocket::initialization() {
 	hints.ai_protocol = IPPROTO_TCP;
 
 	// Resolve the server address and port
-	result = getaddrinfo("www.google.com", DEFAULT_PORT, &hints, &res);
-	if (result != 0) {
-		printf("getaddrinfo failed: %d\n", result);
+	returnCode = getaddrinfo("www.google.com", DEFAULT_PORT, &hints, &result);
+	if (returnCode != 0) {
+		printf("getaddrinfo failed: %d\n", returnCode);
 		WSACleanup();
 		return 1;
 	}
 
 	// Attempt to connect to the first address returned by
 	// the call to getaddrinfo
-	ptr = res;
+	ptr = result;
 
 	// Create a SOCKET for connecting to server
 	ConnectSocket = socket(ptr->ai_family, ptr->ai_socktype,
@@ -52,19 +50,19 @@ int TcpSocket::initialization() {
 	// Check if socket is valid or not
 	if (ConnectSocket == INVALID_SOCKET) {
 		printf("Error at socket(): %ld\n", WSAGetLastError());
-		freeaddrinfo(res);
+		freeaddrinfo(result);
 		WSACleanup();
 		return 1;
 	}
 	
 	/* Sperate function */
-	const char* sendbuf = "this is a test";
+	const char* sendbuf = "GET / HTTP/1.1\r\n\r\n";
 	char recvbuf[DEFAULT_BUFLEN];
 
-	int iResult;
+	int connectionCode;
 
-	iResult = connect(ConnectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
-	if (iResult == SOCKET_ERROR) {
+	connectionCode = connect(ConnectSocket, ptr->ai_addr, (int)ptr->ai_addrlen);
+	if (connectionCode == SOCKET_ERROR) {
 		closesocket(ConnectSocket);
 		ConnectSocket = INVALID_SOCKET;
 		printf("Unable to connect to server!\n");
@@ -78,18 +76,18 @@ int TcpSocket::initialization() {
 	//int recvbuflen = DEFAULT_BUFLEN;
 
 
-	iResult = send(ConnectSocket, sendbuf, (int)strlen(sendbuf), 0);
-	if (iResult == SOCKET_ERROR) {
+	connectionCode = send(ConnectSocket, sendbuf, (int)strlen(sendbuf), 0);
+	if (connectionCode == SOCKET_ERROR) {
 		printf("Send Failed %d\n", WSAGetLastError());
 		closesocket(ConnectSocket);
 		WSACleanup();
 		return 1;
 	}
 
-	printf("Bytes Sent: %ld\n", iResult);
+	printf("Bytes Sent: %ld\n", connectionCode);
 
-	iResult = shutdown(ConnectSocket, SD_SEND);
-	if (iResult == SOCKET_ERROR) {
+	connectionCode = shutdown(ConnectSocket, SD_SEND);
+	if (connectionCode == SOCKET_ERROR) {
 		printf("shutdown failed: %d\n", WSAGetLastError());
 		closesocket(ConnectSocket);
 		WSACleanup();
@@ -97,14 +95,16 @@ int TcpSocket::initialization() {
 	}
 
 	do {
-		iResult = recv(ConnectSocket, recvbuf, DEFAULT_BUFLEN, 0);
-		if (iResult > 0)
-			printf("Bytes recieved: %d\n", iResult);
-		else if (iResult == 0)
+		connectionCode = recv(ConnectSocket, recvbuf, DEFAULT_BUFLEN, 0);
+		if (connectionCode > 0) {
+			printf("Bytes recieved: %d\n", connectionCode);
+			puts(recvbuf);
+		}
+		else if (connectionCode == 0)
 			printf("Connection close\n");
 		else
 			printf("recv failed: %d\n", WSAGetLastError());
-	} while (iResult > 0);
+	} while (connectionCode > 0);
 
 	// cleanup
 	closesocket(ConnectSocket);

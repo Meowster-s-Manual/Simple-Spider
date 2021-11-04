@@ -4,7 +4,8 @@
 #include <iostream>
 
 #pragma comment(lib, "Ws2_32.lib")
-#define DEFAULT_PORT "443"
+#define DEFAULT_PORT "80"
+#define DEFAULT_BUFLEN 5120
 
 namespace Socket {
 	class TcpSocket
