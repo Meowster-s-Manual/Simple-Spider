@@ -10,12 +10,19 @@
 namespace Socket {
 	class TcpSocket
 	{
-	public:
+	private:
+		WSADATA wsaData;
+		SOCKET ConnectSocket = INVALID_SOCKET;
+		struct addrinfo* ptr = NULL,
+			hints;
+
 		int initialization();
+
+	public:
 		TcpSocket();
 		~TcpSocket();
 
-	private:
-
+		int urlToIp(const char* address);
+		int receive();
 	};
 }

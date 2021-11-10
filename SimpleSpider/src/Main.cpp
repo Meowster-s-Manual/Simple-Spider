@@ -6,5 +6,6 @@ using namespace Socket;
 int main() {
     //std::cout << "What are you doing ANDREW!" << std::endl;
     TcpSocket testrun;
-
+    testrun.urlToIp("www.google.com");
+    testrun.receive();
 }
