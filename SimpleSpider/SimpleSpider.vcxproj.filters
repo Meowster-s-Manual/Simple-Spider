@@ -21,9 +21,15 @@
     <ClCompile Include="src\socket\TcpSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\io\WriteToFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\socket\TcpSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\WriteToFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

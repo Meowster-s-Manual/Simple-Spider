@@ -149,9 +149,11 @@
   <ItemGroup>
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\socket\TcpSocket.cpp" />
+    <ClCompile Include="src\io\WriteToFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\socket\TcpSocket.h" />
+    <ClInclude Include="src\io\WriteToFile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,9 +1,9 @@
 #include "TcpSocket.h"
 
-using namespace Socket;
+using namespace sisp;
 
 TcpSocket::TcpSocket() {
-	this->initialization();
+	initialization();
 }
 
 TcpSocket::~TcpSocket() {}
@@ -51,9 +51,7 @@ int TcpSocket::receive()
 		return 1;
 	}
 
-	/* Sperate function */
-	const char* sendbuf = "GET / HTTP/1.1\r\n\r\n";
-	char recvbuf[DEFAULT_BUFLEN];
+	const char* sendbuf = "GET / HTTP/1.0\r\n\r\n";
 
 	int connectionCode;
 
@@ -84,12 +82,15 @@ int TcpSocket::receive()
 		return 1;
 	}
 
+	WriteToFile myFile("example.txt");
+	char recvbuf[DEFAULT_BUFLEN];
 	do {
 		connectionCode = recv(ConnectSocket, recvbuf, DEFAULT_BUFLEN - 1, 0);
 		if (connectionCode > 0) {
 			//printf("Bytes recieved: %d\n", connectionCode);
 			recvbuf[connectionCode] = '\0';
 			printf("%s", recvbuf);
+			myFile.writeToFile(recvbuf);
 		}
 		else if (connectionCode == 0)
 			printf("Connection close\n");
@@ -98,6 +99,7 @@ int TcpSocket::receive()
 	} while (connectionCode > 0);
 
 	// cleanup
+	myFile.closeFile();
 	closesocket(ConnectSocket);
 	WSACleanup();
 
