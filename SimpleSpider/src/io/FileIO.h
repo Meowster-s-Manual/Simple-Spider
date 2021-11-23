@@ -8,7 +8,7 @@ namespace sisp {
 	class FileIO
 	{
 	private:
-		fstream myfile;
+		ofstream myfile;
 	public:
 		FileIO(const char* name);
 		~FileIO();
