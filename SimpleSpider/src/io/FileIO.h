@@ -5,13 +5,13 @@
 using namespace std;
 
 namespace sisp {
-	class WriteToFile
+	class FileIO
 	{
 	private:
-		ofstream myfile;
+		fstream myfile;
 	public:
-		WriteToFile(const char* name);
-		~WriteToFile();
+		FileIO(const char* name);
+		~FileIO();
 
 		int writeToFile(const char* text);
 		int closeFile();

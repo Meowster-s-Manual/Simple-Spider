@@ -147,13 +147,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\util\Parser.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\socket\TcpSocket.cpp" />
-    <ClCompile Include="src\io\WriteToFile.cpp" />
+    <ClCompile Include="src\io\FileIO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\util\Parser.h" />
     <ClInclude Include="src\socket\TcpSocket.h" />
-    <ClInclude Include="src\io\WriteToFile.h" />
+    <ClInclude Include="src\io\FileIO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

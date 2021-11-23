@@ -21,7 +21,10 @@
     <ClCompile Include="src\socket\TcpSocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\io\WriteToFile.cpp">
+    <ClCompile Include="src\io\FileIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +32,10 @@
     <ClInclude Include="src\socket\TcpSocket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\io\WriteToFile.h">
+    <ClInclude Include="src\io\FileIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\Parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,17 +1,17 @@
-#include "WriteToFile.h"
+#include "FileIO.h"
 
 using namespace sisp;
 
-sisp::WriteToFile::WriteToFile(const char* name) : myfile(name)
+sisp::FileIO::FileIO(const char* name) : myfile(name)
 {
 }
 
-WriteToFile::~WriteToFile()
+FileIO::~FileIO()
 {
 }
 
 
-int WriteToFile::writeToFile(const char* text)
+int FileIO::writeToFile(const char* text)
 {
     if (myfile.is_open())
     {
@@ -20,7 +20,7 @@ int WriteToFile::writeToFile(const char* text)
     return 0;
 }
 
-int WriteToFile::closeFile()
+int FileIO::closeFile()
 {
     myfile.close();
     return 0;

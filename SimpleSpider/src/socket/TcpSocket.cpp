@@ -82,21 +82,37 @@ int TcpSocket::receive()
 		return 1;
 	}
 
-	WriteToFile myFile("example.txt");
+	FileIO myFile("example.html"); //TODO: Dynamic naming
 	char recvbuf[DEFAULT_BUFLEN];
+	char * foundPtr;
+	bool runFinder = true;
+	int difference = 0;
 	do {
 		connectionCode = recv(ConnectSocket, recvbuf, DEFAULT_BUFLEN - 1, 0);
 		if (connectionCode > 0) {
 			//printf("Bytes recieved: %d\n", connectionCode);
-			recvbuf[connectionCode] = '\0';
-			printf("%s", recvbuf);
-			myFile.writeToFile(recvbuf);
+			if (runFinder) {
+				foundPtr = Parser::removeHeader(recvbuf);
+				difference = (int) (foundPtr - recvbuf);
+				recvbuf[connectionCode] = '\0';
+				myFile.writeToFile(foundPtr);
+				printf("%s", foundPtr);
+				runFinder = false;
+			}
+			else {
+				recvbuf[connectionCode] = '\0';
+				myFile.writeToFile(recvbuf);
+				printf("%s", recvbuf);
+			}
 		}
 		else if (connectionCode == 0)
 			printf("Connection close\n");
 		else
 			printf("recv failed: %d\n", WSAGetLastError());
 	} while (connectionCode > 0);
+
+	//call function to parse out header
+	
 
 	// cleanup
 	myFile.closeFile();
