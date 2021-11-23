@@ -84,7 +84,7 @@ int TcpSocket::receive()
 
 	FileIO myFile("example.html"); //TODO: Dynamic naming
 	char recvbuf[DEFAULT_BUFLEN];
-	char * foundPtr;
+	char *foundPtr;
 	bool runFinder = true;
 	int difference = 0;
 	do {
@@ -93,7 +93,6 @@ int TcpSocket::receive()
 			//printf("Bytes recieved: %d\n", connectionCode);
 			if (runFinder) {
 				foundPtr = Parser::removeHeader(recvbuf);
-				difference = (int) (foundPtr - recvbuf);
 				recvbuf[connectionCode] = '\0';
 				myFile.writeToFile(foundPtr);
 				printf("%s", foundPtr);
