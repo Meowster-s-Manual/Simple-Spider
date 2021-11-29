@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -8,12 +9,13 @@ namespace sisp {
 	class FileIO
 	{
 	private:
-		ofstream myfile;
+		fstream myfile;
 	public:
-		FileIO(const char* name);
+		FileIO(const char* name, bool write = true);
 		~FileIO();
 
 		int writeToFile(const char* text);
+		int readFile();
 		int closeFile();
 	};
 }

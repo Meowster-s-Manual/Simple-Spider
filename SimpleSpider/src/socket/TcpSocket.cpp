@@ -95,13 +95,11 @@ int TcpSocket::receive()
 				foundPtr = Parser::removeHeader(recvbuf);
 				recvbuf[connectionCode] = '\0';
 				myFile.writeToFile(foundPtr);
-				printf("%s", foundPtr);
 				runFinder = false;
 			}
 			else {
 				recvbuf[connectionCode] = '\0';
 				myFile.writeToFile(recvbuf);
-				printf("%s", recvbuf);
 			}
 		}
 		else if (connectionCode == 0)
