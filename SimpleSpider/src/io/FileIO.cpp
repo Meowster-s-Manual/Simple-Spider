@@ -20,6 +20,7 @@ FileIO::FileIO(const char* name, bool write)
 
 FileIO::~FileIO()
 {
+    myfile.close();
 }
 
 
@@ -32,16 +33,17 @@ int FileIO::writeToFile(const char* text)
     return 0;
 }
 
-int FileIO::readFile()
+string FileIO::readFile()
 {
-    if (myfile.is_open())
+    if (!myfile.is_open())
     {
-        string contents((istreambuf_iterator<char>(myfile)),
-           istreambuf_iterator<char>());
-        cout << contents;
+        cout << "Error: Unable to open file";
     }
-    else cout << "Error: Unable to open file";
-    return 0;
+
+    string contents{ istreambuf_iterator<char>{myfile}, {} }; // uniform initilization
+    //cout << contents;
+
+    return contents;
 }
 
 int FileIO::closeFile()

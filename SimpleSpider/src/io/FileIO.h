@@ -15,7 +15,7 @@ namespace sisp {
 		~FileIO();
 
 		int writeToFile(const char* text);
-		int readFile();
+		string readFile();
 		int closeFile();
 	};
 }

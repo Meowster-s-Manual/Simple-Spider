@@ -22,6 +22,8 @@ int TcpSocket::initialization() {
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
+
+	return 0;
 }
 
 int TcpSocket::urlToIp(const char* address)
@@ -35,6 +37,8 @@ int TcpSocket::urlToIp(const char* address)
 		WSACleanup();
 		return 1;
 	}
+
+	return 0;
 }
 
 int TcpSocket::receive()

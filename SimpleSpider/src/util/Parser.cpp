@@ -11,13 +11,21 @@ char * Parser::removeHeader(char * buffer) {
 	return found;
 }
 
-vector<char*> Parser::linkFinder(const char* fileName)
+vector<string> Parser::linkFinder(const char* fileName)
 {
-	vector<char*> links;
+	vector<string> links;
+	string htmlData;
 	FileIO myFile(fileName, false);
-	myFile.readFile();
-	// TODO get links using regex <a.+?href="(.+?)" and save in links
+
+	htmlData = myFile.readFile();
+
+	smatch sm;
+	while (regex_search(htmlData, sm, regex("<a.+?href=\"(http.+?)\""))) {
+		//cout << sm.str(1) << "\n";
+		links.push_back(sm.str(1)); // 1 to grab the regex capture group
+
+		htmlData = sm.suffix().str(); // iterator
+	}
 
 	return links;
 }
-;

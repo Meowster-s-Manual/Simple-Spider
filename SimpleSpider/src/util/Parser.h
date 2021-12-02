@@ -13,6 +13,6 @@ namespace sisp {
 	private:
 	public:
 		static char * removeHeader(char * buffer);
-		static vector<char*> linkFinder(const char* fileName);
+		static vector<string> linkFinder(const char* fileName);
 	};
 };
